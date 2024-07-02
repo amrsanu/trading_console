@@ -16,12 +16,12 @@ try:
 except Exception as e:
     print(e)
 
-# db = client['kite']
+db = client['kite']
 
-# collection = db['kite-user']
-# document = collection.find_one()
+collection = db['kite-user']
+document = collection.find_one()
 
-# print("Single document:", document)
-# documents = collection.find()
-# for doc in documents:
-#     print(doc)
+print("Single document:", document)
+documents = collection.find()
+for doc in documents:
+    print(doc)

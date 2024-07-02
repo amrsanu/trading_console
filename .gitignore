@@ -1,1 +1,8 @@
+# Files
+*.log
+*.json
+temp.*
+
+# Folders
 venv/
+__pycache__

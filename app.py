@@ -1,27 +1,26 @@
-import urllib.parse
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_bcrypt import Bcrypt
-from pymongo import MongoClient
-from pymongo.server_api import ServerApi
+from script.symbols import Symbols
+from script.db import users_collection
 
 
 app = Flask(__name__)
 app.secret_key = 'intraday_trading'  # Replace with your secret key
 bcrypt = Bcrypt(app)
 
-user = urllib.parse.quote_plus("amrsanubtc")
-password = urllib.parse.quote_plus("kite@123")
-uri = f"mongodb+srv://{user}:{password}@kite-db.jtrmqlf.mongodb.net/?appName=kite-db"
 
-# Replace the URI with your MongoDB deployment's connection string.
-client = MongoClient(uri, server_api=ServerApi('1'))
-db = client['kite']
-users_collection = db['kite-user']
-
-
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html')
+    symbols = Symbols()
+    nse_symbols = symbols.symbols()
+
+    selected_stock = None
+    if request.method == 'POST':
+        selected_stock = request.form['selected_stock']
+        # Process the selected stock as needed
+        print(f'Selected Stock: {selected_stock}')
+
+    return render_template('index.html', nse_symbols=nse_symbols, selected_stock=selected_stock)
 
 
 @app.route('/register', methods=['GET', 'POST'])

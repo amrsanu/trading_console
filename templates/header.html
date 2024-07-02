@@ -1,0 +1,16 @@
+<header class="bg-gray-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Intraday Algo Trading</h1>
+        <nav>
+            <ul class="flex space-x-4">
+                {% if 'username' in session %}
+                    <li><a href="{{ url_for('home') }}" class="hover:text-gray-400">Home</a></li>
+                    <li><a href="{{ url_for('logout') }}" class="hover:text-gray-400">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="hover:text-gray-400">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="hover:text-gray-400">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
