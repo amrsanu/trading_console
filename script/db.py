@@ -1,3 +1,5 @@
+"""_summary_
+"""
 import urllib.parse
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi

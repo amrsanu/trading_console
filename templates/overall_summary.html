@@ -1,0 +1,30 @@
+
+<h2 class="text-2xl font-semibold">Overall Summary</h2>
+<div class="overflow-x-auto">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>Total Count</th>
+                <th>Open Count</th>
+                <th>Total P/L</th>
+                <th>Realized P/L</th>
+                <th>Unrealized P/L</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ fyers_data["overall"]["count_total"] }}</td>
+                <td>{{ fyers_data["overall"]["count_open"] }}</td>
+                <td class="{% if fyers_data["overall"]["pl_total"] > 0 %}pl-positive{% else %}pl-negative{% endif %}">
+                    {{ fyers_data["overall"]["pl_total"] }}
+                </td>
+                <td class="{% if fyers_data["overall"]["pl_realized"] > 0 %}pl-positive{% else %}pl-negative{% endif %}">
+                    {{ fyers_data["overall"]["pl_realized"] }}
+                </td>
+                <td class="{% if fyers_data["overall"]["pl_unrealized"] > 0 %}pl-positive{% else %}pl-negative{% endif %}">
+                    {{ fyers_data["overall"]["pl_unrealized"] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

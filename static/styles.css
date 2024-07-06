@@ -1,0 +1,146 @@
+/* static/styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7fafc;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+.welcome-message {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.open-orders {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.select-stock {
+  display: block;
+  width: fit-content;
+  padding: 0.5rem; /* Adjust padding */
+  border: 1px solid #6b7280;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  line-height: 1.5; /* Adjust line-height */
+}
+
+.submit-button {
+  margin-top: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem; /* Adjust padding */
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  line-height: 1.5; /* Adjust line-height */
+}
+
+footer {
+  background-color: #1f2937; /* Equivalent to Tailwind CSS gray-800 */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+form input[type="text"],
+.select-stock,
+.submit-button {
+  display: block;
+  width: 33%;
+  padding: 0.5rem;
+  border: 1px solid #6b7280;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+/* styles.css */
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #f3f4f6;
+    color: #6b7280;
+}
+
+.custom-table td {
+    color: #4b5563;
+}
+
+
+.overall-summary {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-item span {
+    font-size: 1rem;
+}
+
+.summary-item span:first-child {
+    font-weight: bold;
+}
+
+.pl-positive {
+    color: green;
+    font-weight: bold;
+}
+
+.pl-negative {
+    color: red;
+    font-weight: bold;
+}

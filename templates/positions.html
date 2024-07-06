@@ -1,0 +1,30 @@
+<div class="mt-6">
+    <h2 class="text-2xl font-semibold">Positions</h2>
+    <div class="overflow-x-auto">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Quantity</th>
+                    <th>Type</th>
+                    <th>Time</th>
+                    <th>Validity</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in fyers_data["netPositions"] %}
+                    <tr>
+                        <td>{{ order["symbol"] }}</td>
+                        <td>{{ order["qty"] }}</td>
+                        <td>{{ order["productType"] }}</td>
+                        <td>{{ order["orderDateTime"] }}</td>
+                        <td>{{ order["orderValidity"] }}</td>
+                        <td>{{ order["pl"] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>

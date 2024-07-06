@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_bcrypt import Bcrypt
 from script.symbols import Symbols
 from script.db import users_collection
-
-
+from script.fyers import Fyers
+from fyres_data.instrument_types import InstrumentType
+from fyres_data.orders import OrderStatus, OrderType, OrderSlides
 app = Flask(__name__)
 app.secret_key = 'intraday_trading'  # Replace with your secret key
 bcrypt = Bcrypt(app)
@@ -11,20 +12,45 @@ bcrypt = Bcrypt(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    symbols = Symbols()
-    nse_symbols = symbols.symbols()
+    """_summary_
 
-    selected_stock = None
-    if request.method == 'POST':
-        selected_stock = request.form['selected_stock']
-        # Process the selected stock as needed
-        print(f'Selected Stock: {selected_stock}')
+    Returns:
+        _type_: _description_
+    """
+    fyers_data = {}
+    fyers_data["connected"] = False
+    if session.get("username", None):
+        fyers = Fyers(username=session["username"])
 
-    return render_template('index.html', nse_symbols=nse_symbols, selected_stock=selected_stock)
+        if fyers.fyers_model():
+            fyers_data["connected"] = True
+            print("Connected")
+
+        if not fyers_data["connected"]:
+            fyers.gen_authcode()
+            try:
+                if request.method == 'POST' and request.form.get('auth_code'):
+                    auth_code = request.form['auth_code']
+                    fyers.generate_accesstoken(auth_code=auth_code)
+                    flash(
+                        f"Generated authorization code...{fyers.access_token}")
+            except Exception as ex:
+                print(ex)
+
+        if fyers_data["connected"]:
+            fyers_data["order_book"] = fyers.order_book()
+            fyers_data["positions"], fyers_data["overall"] = fyers.positions()
+
+    return render_template('index.html', fyers_data=fyers_data)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
