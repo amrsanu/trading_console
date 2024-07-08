@@ -1,0 +1,9 @@
+<h1 class="text-3xl font-bold">Login</h1>
+<form method="post" class="mt-4 login-form">
+    <label for="username" class="block">Username:</label>
+    <input type="text" id="username" name="username" required class="input-field"><br>
+    <label for="password" class="block">Password:</label>
+    <input type="password" id="password" name="password" required class="input-field"><br>
+    <input type="submit" value="Login" class="submit-button">
+</form>
+<a href="{{ url_for('register') }}" class="register-link">Don't have an account? Register here</a>

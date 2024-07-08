@@ -14,6 +14,6 @@
 
         {% endif %}
     {% else %}
-        <p>Login or Register</p>
+        <meta http-equiv="refresh" content="0; url={{ url_for('login') }}">
     {% endif %}
 {% endblock %}

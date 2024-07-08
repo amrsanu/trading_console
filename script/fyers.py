@@ -83,8 +83,83 @@ class Fyers:
             dict: All the orders placed by the user
         """
         response = self.fyers.positions()
+        response = {
+            "s": "ok",
+            "code": 200,
+            "message": "",
+            "netPositions":
+            [{
+                "netQty": 1,
+                "qty": 1,
+                "avgPrice": 72256.0,
+                "netAvg": 71856.0,
+                "side": 1,
+                "productType": "MARGIN",
+                "realized_profit": 400.0,
+                "unrealized_profit": 461.0,
+                "pl": 861.0,
+                "ltp": 72717.0,
+                "buyQty": 2,
+                "buyAvg": 72256.0,
+                "buyVal": 144512.0,
+                "sellQty": 1,
+                "sellAvg": 72656.0,
+                "sellVal": 72656.0,
+                "slNo": 0,
+                "fyToken": "1120200831217406",
+                "crossCurrency": "N",
+                "rbiRefRate": 1.0,
+                "qtyMulti_com": 1.0,
+                "segment": 20,
+                "symbol": "MCX:SILVERMIC20AUGFUT",
+                "id": "MCX:SILVERMIC20AUGFUT-MARGIN",
+                "cfBuyQty": 0,
+                "cfSellQty": 0,
+                "dayBuyQty": 0,
+                "daySellQty": 1,
+                "exchange": 10,
+            },
+                {
+                "netQty": -11,
+                "qty": -1,
+                "avgPrice": 72256.0,
+                "netAvg": 71856.0,
+                "side": 1,
+                "productType": "MARGIN",
+                "realized_profit": 400.0,
+                "unrealized_profit": 461.0,
+                "pl": 861.0,
+                "ltp": 72717.0,
+                "buyQty": 1,
+                "buyAvg": 72256.0,
+                "buyVal": 144512.0,
+                "sellQty": 2,
+                "sellAvg": 72656.0,
+                "sellVal": 72656.0,
+                "slNo": 0,
+                "fyToken": "1120200831217406",
+                "crossCurrency": "N",
+                "rbiRefRate": 1.0,
+                "qtyMulti_com": 1.0,
+                "segment": 20,
+                "symbol": "NSE:HDFCBANK-EQ",
+                "id": "MCX:SILVERMIC20AUGFUT-MARGIN",
+                "cfBuyQty": 0,
+                "cfSellQty": 0,
+                "dayBuyQty": 0,
+                "daySellQty": 1,
+                "exchange": 10,
+            }],
+            "overall":
+            {
+                "count_total": 1,
+                "count_open": 1,
+                "pl_total": 861.0,
+                "pl_realized": 400.0,
+                "pl_unrealized": 461.0
+            }
+        }
         if response["code"] == 200:
-            print(response)
             return response["netPositions"], response["overall"]
         else:
             return None

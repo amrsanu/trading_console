@@ -58,6 +58,7 @@ footer {
 }
 
 form input[type="text"],
+form input[type="password"],
 .select-stock,
 .submit-button {
   display: block;
@@ -80,7 +81,14 @@ form input[type="text"],
   line-height: 1.5;
 }
 
-/* styles.css */
+.row-submit-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  width: 10rem
+}
 
 .custom-table {
     width: 100%;
@@ -143,4 +151,38 @@ form input[type="text"],
 .pl-negative {
     color: red;
     font-weight: bold;
+}
+
+.login-form {
+    margin-top: 1rem; /* mt-4 */
+}
+
+.block {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.input-field {
+    border: 1px solid #ddd;
+    border-radius: 0.375rem; /* rounded */
+    padding: 0.5rem; /* p-2 */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.row-input-field {
+    border: 1px solid #ddd;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    width: 8rem;
+}
+
+.register-link {
+    color: #3b82f6; /* text-blue-500 */
+    text-decoration: none;
+    margin-top: 1rem; /* mt-4 */
+    display: block;
+}
+
+.register-link:hover {
+    text-decoration: underline; /* hover:underline */
 }

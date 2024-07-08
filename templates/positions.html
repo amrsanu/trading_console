@@ -7,24 +7,37 @@
                     <th>Symbol</th>
                     <th>Quantity</th>
                     <th>Type</th>
-                    <th>Time</th>
-                    <th>Validity</th>
                     <th>Profit</th>
+                    <th>Target %</th>
+                    <th>Target &#x20B9</th>
+                    <th>Trail SL</th>
+                    <th>Submit</th>
                 </tr>
             </thead>
             <tbody>
-                {% for order in fyers_data["netPositions"] %}
+                {% for order in fyers_data["positions"] %}
                     <tr>
                         <td>{{ order["symbol"] }}</td>
                         <td>{{ order["qty"] }}</td>
                         <td>{{ order["productType"] }}</td>
-                        <td>{{ order["orderDateTime"] }}</td>
-                        <td>{{ order["orderValidity"] }}</td>
                         <td>{{ order["pl"] }}</td>
+                        <form method="post" class="mt-4 position-form">
+                            <td>
+                                <input type="text" id="target-percentage" name="username" required class="row-input-field"><br>
+                            </td>
+                            <td>
+                                <input type="text" id="target-rupee" name="username" required class="row-input-field"><br>
+                            </td>
+                            <td>
+                                <input type="text" id="trail-sl" name="username" required class="row-input-field"><br>
+                            </td>
+                            <td>
+                                <input type="submit" value="submit" class="row-submit-button">
+                            </td>
+                        </form>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    
 </div>

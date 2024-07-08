@@ -36,11 +36,3 @@ class InstrumentType(Enum):
     FUTCOM = 30
     OPTFUT = 31
     OPTCOM = 32
-
-
-# Example usage:
-value = 0
-instrument_type = InstrumentType(value)
-print(instrument_type)           # Output: InstrumentType.EQ
-print(instrument_type.name)      # Output: EQ
-print(instrument_type.value)     # Output: 0

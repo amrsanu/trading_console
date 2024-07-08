@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.secret_key = 'intraday_trading'  # Replace with your secret key
 bcrypt = Bcrypt(app)
 
+fyers_data = {}
+fyers_data["connected"] = False
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -17,8 +19,6 @@ def home():
     Returns:
         _type_: _description_
     """
-    fyers_data = {}
-    fyers_data["connected"] = False
     if session.get("username", None):
         fyers = Fyers(username=session["username"])
 
@@ -34,6 +34,8 @@ def home():
                     fyers.generate_accesstoken(auth_code=auth_code)
                     flash(
                         f"Generated authorization code...{fyers.access_token}")
+                    fyers_data["connected"] = True
+
             except Exception as ex:
                 print(ex)
 
