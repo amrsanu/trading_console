@@ -35,12 +35,13 @@ class Fyers:
         Args:
             auth_code (str): authorization code
         """
-
+        print("In generate_accesstoken()")
         self.appSession.set_token(auth_code)
         response = self.appSession.generate_token()
 
         try:
             self.access_token = response["access_token"]
+            print("Generating authorization token : " + self.access_token)
             users_collection.update_one(
                 {"username": self.user["username"]},
                 {"$set": {"access_token": self.access_token}},
@@ -161,5 +162,121 @@ class Fyers:
         }
         if response["code"] == 200:
             return response["netPositions"], response["overall"]
+        else:
+            return None
+
+    def place_order(self):
+        """Fetches all the orders placed by the user across 
+        all platforms and exchanges in the current trading day.
+
+        Returns:
+            dict: All the orders placed by the user
+        """
+        data = {
+            "symbol": "NSE:IDEA-EQ",
+            "qty": 1,
+            "type": 2,
+            "side": 1,
+            "productType": "INTRADAY",
+            "limitPrice": 0,
+            "stopPrice": 0,
+            "validity": "DAY",
+            "disclosedQty": 0,
+            "offlineOrder": False,
+            "orderTag": "tag1"
+        }
+
+        response = self.fyers.place_order(data=data)
+
+        if response["code"] == 200:
+            print(response)
+            return response["orderBook"]
+        else:
+            return None
+
+    def basket_orders(self):
+        """Fetches all the orders placed by the user across 
+        all platforms and exchanges in the current trading day.
+
+        Returns:
+            dict: All the orders placed by the user
+        """
+        data = [{
+            "symbol": "NSE:SBIN-EQ",
+            "qty": 1,
+            "type": 2,
+            "side": 1,
+            "productType": "INTRADAY",
+            "limitPrice": 0,
+            "stopPrice": 0,
+            "validity": "DAY",
+            "disclosedQty": 0,
+            "offlineOrder": False,
+        },
+            {
+            "symbol": "NSE:IDEA-EQ",
+            "qty": 1,
+            "type": 2,
+            "side": 1,
+            "productType": "INTRADAY",
+            "limitPrice": 0,
+            "stopPrice": 0,
+            "validity": "DAY",
+            "disclosedQty": 0,
+            "offlineOrder": False,
+        }, {
+            "symbol": "NSE:SBIN-EQ",
+            "qty": 1,
+            "type": 2,
+            "side": 1,
+            "productType": "INTRADAY",
+            "limitPrice": 0,
+            "stopPrice": 0,
+            "validity": "DAY",
+            "disclosedQty": 0,
+            "offlineOrder": False,
+        },
+            {
+            "symbol": "NSE:IDEA-EQ",
+            "qty": 1,
+            "type": 2,
+            "side": 1,
+            "productType": "INTRADAY",
+            "limitPrice": 0,
+            "stopPrice": 0,
+            "validity": "DAY",
+            "disclosedQty": 0,
+            "offlineOrder": False,
+        }]
+
+        response = self.fyers.place_order(data=data)
+
+        if response["code"] == 200:
+            print(response)
+            return response["orderBook"]
+        else:
+            return None
+
+    def modify_pending_order(self):
+        """Fetches all the orders placed by the user across 
+        all platforms and exchanges in the current trading day.
+
+        Returns:
+            dict: All the orders placed by the user
+        """
+
+
+        orderId = "8102710298291"
+        data = {
+            "id": orderId,
+            "type": 1,
+            "limitPrice": 61049,
+            "qty": 1
+        }
+
+        response = self.fyers.modify_order(data=data)
+        if response["code"] == 200:
+            print(response)
+            return response["orderBook"]
         else:
             return None

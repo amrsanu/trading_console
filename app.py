@@ -9,41 +9,68 @@ app = Flask(__name__)
 app.secret_key = 'intraday_trading'  # Replace with your secret key
 bcrypt = Bcrypt(app)
 
-fyers_data = {}
-fyers_data["connected"] = False
+_fyers = None
+_fyers_data = {}
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    """_summary_
+    """Home route that handles authentication and data retrieval."""
+    global _fyers, _fyers_data
+    # Initialize fyers_data dictionary if not already present
+    if 'connected' not in session:
+        session['connected'] = False
 
-    Returns:
-        _type_: _description_
-    """
-    if session.get("username", None):
-        fyers = Fyers(username=session["username"])
+    connected = session['connected']
 
-        if fyers.fyers_model():
-            fyers_data["connected"] = True
-            print("Connected")
+    if session.get("username"):
+        if _fyers is None:
+            print("Creating new account...")
+            _fyers = Fyers(username=session["username"])
 
-        if not fyers_data["connected"]:
-            fyers.gen_authcode()
+        try:
+            if request.method == 'POST' and 'auth_code' in request.form:
+                auth_code = request.form['auth_code']
+                _fyers.generate_accesstoken(auth_code=auth_code)
+                connected = True
+                session['connected'] = connected
+
+        except Exception as ex:
+            print("Error in authentication:", ex)
+        else:
+            if _fyers.fyers_model():
+                print("Authentication successfull...")
+            else:
+                connected = False
+                session['connected'] = connected
+
+        if not connected:
+            _fyers.gen_authcode()
+
+        if connected:
             try:
-                if request.method == 'POST' and request.form.get('auth_code'):
-                    auth_code = request.form['auth_code']
-                    fyers.generate_accesstoken(auth_code=auth_code)
-                    flash(
-                        f"Generated authorization code...{fyers.access_token}")
-                    fyers_data["connected"] = True
+                response = _fyers.fyers.orderbook()
+                if response["code"] == 200:
+                    _fyers_data["order_book"] = response["orderBook"]
+                else:
+                    _fyers_data["order_book"] = []
+
+                response = _fyers.fyers.positions()
+                if response["code"] == 200:
+                    _fyers_data["positions"] = response["netPositions"]
+                    _fyers_data["overall"] = response["overall"]
+                else:
+                    _fyers_data["positions"], _fyers_data["overall"] = [], []
+
+                # Return dummy data
+                _fyers_data["positions"], _fyers_data["overall"] = _fyers.positions()
 
             except Exception as ex:
-                print(ex)
-
-        if fyers_data["connected"]:
-            fyers_data["order_book"] = fyers.order_book()
-            fyers_data["positions"], fyers_data["overall"] = fyers.positions()
-
-    return render_template('index.html', fyers_data=fyers_data)
+                print("Error in retrieving data:", ex)
+    else:
+        return redirect(url_for('login'))
+    print(_fyers_data)
+    return render_template('index.html', fyers_data=_fyers_data, connected=connected)
 
 
 @app.route('/register', methods=['GET', 'POST'])

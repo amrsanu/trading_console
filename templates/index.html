@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if 'username' in session %}
-        {% if fyers_data.get("connected") == False %}
+        {% if not connected %}
             <h2>Auth Form</h2>
             {% include 'auth_form.html' %}
         
